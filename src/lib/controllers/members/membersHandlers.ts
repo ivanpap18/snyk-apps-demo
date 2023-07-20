@@ -23,9 +23,9 @@ export async function getMembersFromApi(): Promise<unknown[]> {
     const requests = (data?.orgs ?? []).map((org: any) =>
     callSnykApiWithToken(APIVersion.V1)
       .get(`/org/${org.id}/members`)
-      .then((project) => ({
+      .then((members) => ({
         org: org.name,
-        members: project.data || [],
+        members: members.data || [],
       }))
       .catch((reason) => {console.error(JSON.stringify(reason))}),
   );
