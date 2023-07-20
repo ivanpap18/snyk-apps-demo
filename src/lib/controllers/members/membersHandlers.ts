@@ -30,9 +30,11 @@ export async function getMembersFromApi(): Promise<unknown[]> {
   const requests = (data?.orgs ?? []).map((org) =>
     callSnykApi(token_type, access_token, APIVersion.V1)
       .get(`/org/${org.id}/members`)
-      .then((project) => ({
-        org: org.name,
-        projects: project.data.projects || [],
+      .then((member) => ({
+       // TODO: 
+       // Response is a table with no keys!
+       members: member.data.members || [],
+      
       }))
       .catch((reason) => {console.error(JSON.stringify(reason))}),
   );
