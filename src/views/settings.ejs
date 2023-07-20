@@ -1,0 +1,67 @@
+<%- include('./partials/header.ejs') %>
+    <title>Snyk Demo App</title>
+  </head>
+  <body>
+    <%- include('./partials/topnav.ejs') %>
+
+    <div class="settings-page">
+      <ul class="sidebar-nav">
+        <%- include('./partials/sidenav-user-settings.ejs') %>
+      </ul>
+      <div class="settings-page__content">
+        <div class="settings-page__description">
+          <img class="settings-page__logo" src="/public/images/avatar.svg" alt="avatar" />
+          <h1 class="settings-page__title">Demo App</h1>
+        </div>
+        <h2 class="settings-page__sub-heading">Settings</h2>
+        <div class="card settings-page__card">
+          <div>
+            <h3 class="card__heading">Permissions</h3>
+            <p class="card__text">
+              Set granular permissions for the App within this organization
+            </p>
+            <!-- TODO update link to public docs -->
+            <a href="#" class="link-button settings-page__docs-button">
+              <img
+                src="/public/images/book-outline.svg"
+                alt="book"
+                class="link-button-icon"
+              />
+              View docs
+            </a>
+          </div>
+          <div>
+            <h4 class="settings-page__card--secondary-heading">
+              What scopes does this App have access to?
+            </h4>
+            <div class="settings-page__scope-list">Everything</div>
+          </div>
+        </div>
+        <h2 class="settings-page__sub-heading">Danger Zone</h2>
+        <div class="card danger-card settings-page__card">
+          <div>
+            <h3 class="card__heading">Revoke access for this org</h3>
+            <p class="card__text">
+              Revoking access to this App will remove all functionality
+              associated with this integration.
+            </p>
+            <!-- TODO update link to public docs -->
+            <a href="#" class="link-button settings-page__docs-button">
+              <img
+                src="/public/images/book-outline.svg"
+                alt="book"
+                class="link-button-icon"
+              />
+              View docs
+            </a>
+          </div>
+          <div>
+            <button class="button danger-button settings-page__revoke-button">
+              Revoke Access
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>

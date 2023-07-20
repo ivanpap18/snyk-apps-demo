@@ -1,0 +1,12 @@
+node_modules/
+.vscode
+.idea
+.cache
+dist/
+.DS_Store
+.env*
+db/*
+config/development.json
+config/local.json
+.dccache
+.snyk.conf

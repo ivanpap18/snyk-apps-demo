@@ -1,0 +1,48 @@
+<%- include('./partials/header.ejs') %>
+
+<body>
+  <%- include('./partials/topnav-admin.ejs') %>
+
+  <div class="admin-page">
+    <div class="admin-page__content">
+      <div class="admin-page__description">
+        <img class="admin-page__logo" src="/public/images/avatar.svg" alt="avatar" />
+        <div class="admin-page__heading">
+          <h1 class="admin-page__title">Demo App</h1>
+          <p class="admin-page__text">This is a representation of data you could store in a database.</p>
+        </div>
+      </div>
+      <div class="light__underline"></div>
+      <div class="admin-page__sub-heading-container">
+        <div class="admin-page__sub-heading-box">
+          <h3 class="admin-page__sub-heading" onclick="location.href='/admin'">Settings</h3>
+        </div>
+        <div class="admin-page__sub-heading-box admin-page__sub-heading-selected">
+          <h3 class="admin-page__sub-heading" onclick="location.href='/admin/installs'">Installs</h3>
+        </div>
+      </div>
+      <% if(installs.length === 0){ %>
+      <div class="card">No installs available. Copy the <a href="http://localhost:3000">link</a> to invite users.</div>
+      <% } else { %>
+      <table class="admin-page__table">
+        <thead>
+          <tr class="admin-page__table-row">
+            <th scope="col" class="admin-page__table-row--head">Organization IDs</th>
+            <th scope="col" class="admin-page__table-row--head">Date installed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i = 0; i < installs.length; i++) { %>
+          <tr class="admin-page__table-row">
+            <td class="admin-page__table-row--body">
+              <%= installs[i].orgs.map(org => org.id).join(', ') %>
+            </td>
+            <td class="admin-page__table-row--body"><%= installs[i].date %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <% } %> <%- include('./partials/footer.ejs') %>
+    </div>
+  </div>
+</body>

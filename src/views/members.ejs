@@ -1,0 +1,26 @@
+<%- include('./partials/header.ejs') %>
+<title>Snyk Demo App</title>
+</head>
+<body>
+  <%- include('./partials/topnav.ejs') %>
+
+  <div class="members-page">
+    <ul class="sidebar-nav">
+      <%- include('./partials/sidenav-user-members.ejs') %>
+    </ul>
+    <div class="members-page__content">
+      <div class="members-page__description">
+        <img class="members-page__logo" src="/public/images/avatar.svg" alt="avatar" />
+        <div class="members-page__heading">
+          <h1 class="members-page__title">Demo App</h1>
+          <p class="members-page__text">List of all your members</p>
+        </div>
+      </div>
+
+      <% if (!members || members.length === 0 ) { %>
+        <div class="card">No organisation available</div>
+      <% } else { %>
+      <% } %>
+    </div>
+  </div>
+<%- include('./partials/footer.ejs') %>
