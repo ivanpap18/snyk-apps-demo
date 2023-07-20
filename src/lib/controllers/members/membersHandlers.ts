@@ -1,7 +1,8 @@
 import { readFromDb } from '../../utils/db';
-import { callSnykApi } from '../../utils/api';
+import { callSnykApi, callSnykApiWithToken } from '../../utils/api';
 import { EncryptDecrypt } from '../../utils/encrypt-decrypt';
 import { APIVersion, AuthData, Envars } from '../../types';
+import { getAccess } from '../../helper';
 // import { error } from 'console';
 // import { json } from 'stream/consumers';
 
@@ -18,23 +19,13 @@ export async function getMembersFromApi(): Promise<unknown[]> {
   const data = mostRecent(db.installs);
   // If no data return empty array
   if (!data) return [];
-
-  // Decrypt data(access token)
-  const eD = new EncryptDecrypt(process.env[Envars.EncryptionSecret] as string);
-  const access_token = eD.decryptString(data?.access_token);
-  const token_type = data?.token_type;
-
-  
-  
     // Call the axios instance configured for Snyk API v1
-  const requests = (data?.orgs ?? []).map((org) =>
-    callSnykApi(token_type, access_token, APIVersion.V1)
+    const requests = (data?.orgs ?? []).map((org: any) =>
+    callSnykApiWithToken(APIVersion.V1)
       .get(`/org/${org.id}/members`)
-      .then((member) => ({
-       // TODO: 
-       // Response is a table with no keys!
-       members: member.data.members || [],
-      
+      .then((members) => ({
+        org: org.name,
+        members: members.data || [],
       }))
       .catch((reason) => {console.error(JSON.stringify(reason))}),
   );

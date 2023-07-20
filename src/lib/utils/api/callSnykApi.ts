@@ -25,3 +25,24 @@ export function callSnykApi(tokenType: string, token: string, version: APIVersio
 
   return axiosInstance;
 }
+ 
+/**
+ * Utility function to call the Snyk API with token
+ * @param {APIVersion} version API version to call
+ * @returns {AxiosInstance}
+ */
+export function callSnykApiWithToken(version: APIVersion): AxiosInstance {
+  const contentType = version === APIVersion.V1 ? 'application/json' : 'application/vnd.api+json';
+  const axiosInstance = axios.create({
+    baseURL: `${API_BASE}/${version}`,
+    headers: {
+      'Content-Type': contentType,
+      Authorization: `token ${process.env.token}`,
+    },
+  });
+  
+  axiosInstance.interceptors.request.use(refreshTokenReqInterceptor, Promise.reject);
+  axiosInstance.interceptors.response.use((response) => response, refreshTokenRespInterceptor);
+
+  return axiosInstance;
+}
